@@ -1,5 +1,5 @@
-var logTemperature = new Float32Array(100); // our logged temperature data
-var logBatteryPercentage = new Float32Array(100); // our logged battery % data
+var logTemperature = new Float32Array(200); // our logged temperature data
+var logBatteryPercentage = new Float32Array(200); // our logged battery % data
 var logIndex = 0; // index of last logged data item
 var timePeriod = 600*1000; // every 10 minutes
 var lastReadingTime; // time of last reading

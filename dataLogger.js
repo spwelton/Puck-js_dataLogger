@@ -6,30 +6,34 @@ var lastReadingTime; // time of last reading
 
 // Store data into RAM
 function storeMyData(temperature, batteryPercentage) {
+  LED2.write(1);
   logIndex++;
   if (logIndex>=logTemperature.length) logIndex=0;
   logTemperature[logIndex] = temperature;
   logBatteryPercentage[logIndex] = batteryPercentage;
+  LED2.write(0);
 }
 
 // Get Data and store it in RAM
 function getData() {
-  LED3.write(1);
+  LED1.write(1);
   var temperature = E.getTemperature();
   var batteryPercentage = Puck.getBatteryPercentage();
   storeMyData(temperature, batteryPercentage);
   lastReadingTime = Date.now();
-  LED3.write(0);
+  LED1.write(0);
 }
 
 // Dump our data in a human-readable format
 function exportData() {
+  LED3.write(1);
   for (var i=1;i<=logTemperature.length;i++) {
     var time = new Date(lastReadingTime - (logTemperature.length-i)*timePeriod);
     var temperature = logTemperature[(i+logIndex)%logTemperature.length];
     var batteryPercentage = logBatteryPercentage[(i+logIndex)%logBatteryPercentage.length];
     console.log(time.toString()+"\t"+temperature+"\t"+batteryPercentage);
   }
+  LED3.write(0);
 }
 
 // Start recording

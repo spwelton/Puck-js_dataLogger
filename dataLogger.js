@@ -17,7 +17,7 @@ function storeMyData(temperature, batteryPercentage) {
 // Get Data and store it in RAM
 function getData() {
   LED1.write(1);
-  var temperature = E.getTemperature();
+  var temperature = E.getTemperature() + 4.75;
   var batteryPercentage = Puck.getBatteryPercentage();
   storeMyData(temperature, batteryPercentage);
   lastReadingTime = Date.now();
@@ -31,7 +31,7 @@ function exportData() {
     var time = new Date(lastReadingTime - (logTemperature.length-i)*timePeriod);
     var temperature = logTemperature[(i+logIndex)%logTemperature.length];
     var batteryPercentage = logBatteryPercentage[(i+logIndex)%logBatteryPercentage.length];
-    console.log(time.toString()+"\t"+temperature+"\t"+batteryPercentage);
+    console.log(time.toString()+"\t"+temperature.toFixed(1)+"\t"+batteryPercentage);
   }
   LED3.write(0);
 }
